@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 	//"myProj/xsd"
-	//"./xmlfmt"
+	//"myProj/xmlfmt"
 )
 
 func main() {
@@ -26,6 +26,7 @@ func main() {
 	*/
 
 	file, err := os.Open("testXmlFile.txt")
+	//var xml1 string
 	if err != nil {
 		err = errors.New("reading file error")
 		fmt.Println(err)
@@ -34,7 +35,10 @@ func main() {
 	defer file.Close()
 	fle := bufio.NewScanner(file)
 	for fle.Scan() {
+		//xml1 = xml1 + fle.Text()
 		fmt.Println(fle.Text())
 	}
+	//x := xmlfmt.FormatXML(xml1, "\t", "  ")
+	//print(x)
 	fmt.Printf("%T", file)
 }

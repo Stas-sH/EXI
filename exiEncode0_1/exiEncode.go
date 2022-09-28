@@ -233,7 +233,7 @@ func (e *EXIOptions) setPreserveNS(var1 bool) (*EXIOptions, error) { //throws EX
 	return e, err
 }
 
-func (e *EXIOptions) setInfuseSC(var1 bool, VARAlignmentType AlignmentType) (*EXIOptions, error) { //добавил VARAlignmentType AlignmentType//throws EXIOptionsException
+func (e *EXIOptions) setInfuseSC(var1 bool /*VARAlignmentType AlignmentType*/) (*EXIOptions, error) { //добавил VARAlignmentType AlignmentType//throws EXIOptionsException
 	var err error
 	var var2 bool
 	if e.m_infuseSC != var1 {
@@ -328,39 +328,259 @@ func (e *EXIOptions) setDatatypeRepresentationMap(var1 []QName, var2 int) *EXIOp
 	return e
 }
 
-/*
-public void appendDatatypeRepresentationMap(EventDescription var1, EventDescription var2) throws EXIOptionsException {
-	if (var1 != null && var2 != null) {
-	   int var3 = this.m_n_datatypeRepresentationMapBindings + 1;
-	   int var4 = 2 * var3;
-	   if (this.m_datatypeRepresentationMap.length < var4) {
-		  QName[] var6 = new QName[var4];
+func (e *EXIOptions) appendDatatypeRepresentationMap(var1, var2 EventDescription) (*EXIOptions, error) { //throws EXIOptionsException
+	var err error
+	if var1 != nil && var2 != nil {
+		var var3 int = e.m_n_datatypeRepresentationMapBindings + 1
+		var var4 int = 2 * var3
+		if len(e.m_datatypeRepresentationMap) < var4 {
+			var var6 []QName = make([]QName, var4, var4)
+			var var5 int
+			for var5 = 0; var5 < len(e.m_datatypeRepresentationMap); var5++ {
+				var6[var5] = e.m_datatypeRepresentationMap[var5]
+			}
+			//я считаю что это лишнее
+			//for _; var5 < len(var6); var5++ {
+			//	var6[var5] = new QName();
+			//}
+			e.m_datatypeRepresentationMap = var6
+		}
+		var var7 int = 2 * e.m_n_datatypeRepresentationMapBindings
+		e.m_datatypeRepresentationMap[var7+1].setValue2(var1.getURI(), var1.getName(), "", "") //[var7++]
+		e.m_datatypeRepresentationMap[var7+2].setValue2(var2.getURI(), var2.getName(), "", "") //[var7++]
 
-		  int var5;
-		  for(var5 = 0; var5 < this.m_datatypeRepresentationMap.length; ++var5) {
-			 var6[var5] = this.m_datatypeRepresentationMap[var5];
-		  }
-
-		  while(var5 < var6.length) {
-			 var6[var5] = new QName();
-			 ++var5;
-		  }
-
-		  this.m_datatypeRepresentationMap = var6;
-	   }
-
-	   int var7 = 2 * this.m_n_datatypeRepresentationMapBindings;
-	   this.m_datatypeRepresentationMap[var7++].setValue(var1.getURI(), var1.getName(), (String)null, (String)null);
-	   this.m_datatypeRepresentationMap[var7++].setValue(var2.getURI(), var2.getName(), (String)null, (String)null);
-
-	   assert var7 == var4;
-
-	   this.m_n_datatypeRepresentationMapBindings = var3;
-	} else {
-	   throw new EXIOptionsException("A qname in datatypeRepresentationMap cannot be null.");
+		if var7 != var4 {
+			err = errors.New("class EXIOptions, method appendDatatypeRepresentationMap, must -> var7 == var4")
+		}
+		if err != nil {
+			return e, err
+		}
+		e.m_n_datatypeRepresentationMapBindings = var3
+		return e, err
 	}
- }
-*/
+	err = errors.New("A qname in datatypeRepresentationMap cannot be null.")
+	return e, err
+}
+
+func (e *EXIOptions) toGrammarOptions() int {
+	var var1 int = 2
+	if e.m_isStrict {
+		return 1
+	}
+	if e.m_preserveComments {
+		var1 = VARGrammarOptions.addCM(var1) //было без VAR...
+	}
+
+	if e.m_preservePIs {
+		var1 = VARGrammarOptions.addPI(var1) //было без VAR...
+	}
+
+	if e.m_preserveDTD {
+		var1 = VARGrammarOptions.addDTD(var1) //было без VAR...
+	}
+
+	if e.m_preserveNS {
+		var1 = VARGrammarOptions.addNS(var1) //было без VAR...
+	}
+
+	if e.m_infuseSC {
+		var1 = VARGrammarOptions.addSC(var1) //было без VAR...
+	}
+
+	return var1
+
+}
+
+func (e *EXIOptions) setGrammarOptions(var1 int) { //throws EXIOptionsException
+	e.m_isStrict = (var1 == 1) //if (this.m_isStrict = var1 == 1) {
+	if e.m_isStrict {
+		e.m_preserveComments = false
+		e.m_preservePIs = false
+		e.m_preserveDTD = false
+		e.m_preserveNS = false
+		e.m_infuseSC = false
+	} else {
+		e.m_preserveComments = VARGrammarOptions.hasCM(var1) //было без VAR...
+		e.m_preservePIs = VARGrammarOptions.hasPI(var1)      //было без VAR...
+		e.m_preserveDTD = VARGrammarOptions.hasDTD(var1)     //было без VAR...
+		e.m_preserveNS = VARGrammarOptions.hasNS(var1)       //было без VAR...
+		e.setInfuseSC(VARGrammarOptions.hasSC(var1))         //было без VAR...
+	}
+}
+
+func (e *EXIOptions) getOutline(var1 bool) int {
+	var var2 int = 0
+	var var3 bool = false
+	if e.m_alignmentType.byteAligned == VARAlignmentType.byteAligned || e.m_alignmentType.preCompress == VARAlignmentType.preCompress { //как всю структуру можно сравнить с чем - то конкретным?
+		//if e.m_alignmentType == AlignmentType.byteAligned || e.m_alignmentType == AlignmentType.preCompress {!!???!!!???!!!???!!!???!!!???!!!???!!!
+		var3 = true
+	}
+
+	var var4 bool = (e.m_valuePartitionCapacity != -1)
+	var var5 bool = (e.m_valueMaxLength != -1)
+	var var6 bool = (e.m_n_datatypeRepresentationMapBindings != 0)
+	var var7 bool = false
+
+	if var3 {
+		var7 = true
+	} else if e.m_infuseSC {
+		var7 = true
+	} else if var5 {
+		var7 = true
+	} else if var4 {
+		var7 = true
+	} else if var6 {
+		var7 = true
+	}
+
+	var var8 bool = false
+	if e.m_preserveComments || e.m_preservePIs || e.m_preserveDTD || e.m_preserveNS || e.m_preserveLexicalValues {
+		var8 = true
+	}
+
+	var var9 bool = false
+	if e.m_blockSize != 1000000 {
+		var9 = true
+	}
+
+	var var10 bool = false
+	if var7 || var8 || var9 {
+		var10 = true
+	}
+
+	var var11 bool = false
+	if e.m_alignmentType.compress == VARAlignmentType.compress {
+		//if (e.m_alignmentType == AlignmentType.compress) {!!??!!??!!??!!??!?!?
+		var11 = true
+	} else if e.m_isFragment {
+		var11 = true
+	} else if var1 && e.m_schemaId.m_value != "" { //e.m_schemaId != nil
+		var11 = true
+	}
+
+	if var10 {
+		var2 |= 1 //не знаю что это
+	}
+
+	if var7 {
+		var2 |= 2
+		if var3 {
+			var2 |= 4
+		}
+
+		if var5 {
+			var2 |= 32
+		}
+
+		if var4 {
+			var2 |= 64
+		}
+
+		if var6 {
+			var2 |= 256
+		}
+	}
+
+	if var8 {
+		var2 |= 8
+	}
+
+	if var11 {
+		var2 |= 16
+		if e.m_isFragment {
+			var2 |= 128
+		}
+	}
+
+	return var2
+
+}
+
+//////GrammarOptions.class/////////////////////////
+type GrammarOptions struct {
+	RESTRICT_XSI_NIL_TYPE_MASK int
+	ADD_UNDECLARED_EA_MASK     int
+	ADD_NS                     int
+	ADD_SC                     int
+	ADD_DTD                    int
+	ADD_CM                     int
+	ADD_PI                     int
+	OPTIONS_UNUSED             int
+	DEFAULT_OPTIONS            int
+	STRICT_OPTIONS             int
+}
+
+var VARGrammarOptions GrammarOptions = GrammarOptions{
+	RESTRICT_XSI_NIL_TYPE_MASK: 1,
+	ADD_UNDECLARED_EA_MASK:     2,
+	ADD_NS:                     4,
+	ADD_SC:                     8,
+	ADD_DTD:                    16,
+	ADD_CM:                     32,
+	ADD_PI:                     64,
+	OPTIONS_UNUSED:             0,
+	DEFAULT_OPTIONS:            2,
+	STRICT_OPTIONS:             1,
+}
+
+func (g *GrammarOptions) GrammarOptions() {}
+
+func (g *GrammarOptions) restrictXsiNilType(var0 int, var1 bool) int {
+	if var1 {
+		return (var0 | 1)
+	}
+	return (var0 & -2)
+}
+
+func (g *GrammarOptions) isXsiNilTypeRestricted(var0 int) bool {
+	return ((var0 & 1) != 0)
+}
+
+func (g *GrammarOptions) isPermitDeviation(var0 int) bool {
+	return ((var0 & 2) != 0)
+}
+
+func (g *GrammarOptions) hasNS(var0 int) bool {
+	return ((var0 & 4) != 0)
+}
+
+func (g *GrammarOptions) hasSC(var0 int) bool {
+	return ((var0 & 8) != 0)
+}
+
+func (g *GrammarOptions) hasDTD(var0 int) bool {
+	return ((var0 & 16) != 0)
+}
+
+func (g *GrammarOptions) hasCM(var0 int) bool {
+	return ((var0 & 32) != 0)
+}
+
+func (g *GrammarOptions) hasPI(var0 int) bool {
+	return ((var0 & 64) != 0)
+}
+
+func (g *GrammarOptions) addNS(var0 int) int {
+	return (var0 | 4)
+}
+
+func (g *GrammarOptions) addSC(var0 int) int {
+	return (var0 | 8)
+}
+
+func (g *GrammarOptions) addDTD(var0 int) int {
+	return (var0 | 16)
+}
+
+func (g *GrammarOptions) addCM(var0 int) int {
+	return (var0 | 32)
+}
+
+func (g *GrammarOptions) addPI(var0 int) int {
+	return (var0 | 64)
+}
+
+//////end GrammarOptions.class/////////////////////
 ///////////////EventDescription.class///////////////////////////////////////////
 type EventDescription interface {
 	MetodAddVARVAREventDescription() *STRUCTEventDescription //my metod
@@ -443,7 +663,7 @@ func (s *STRUCTEventDescription) MetodAddVARVAREventDescription(VAREventDescript
 /////////////BinaryDataSource.class///////////////////////
 type BinaryDataSource struct {
 	m_byteArray        []byte
-	im_startIndex      int
+	m_startIndex       int
 	m_length           int
 	m_n_remainingBytes int
 	m_scanner          IBinaryValueScanner
@@ -451,6 +671,40 @@ type BinaryDataSource struct {
 
 func (b *BinaryDataSource) getByteArray() []byte {
 	return b.m_byteArray
+}
+
+func (b *BinaryDataSource) getStartIndex() int {
+	return b.m_startIndex
+}
+
+func (b *BinaryDataSource) getLength() int {
+	return b.m_length
+}
+
+func (b *BinaryDataSource) getRemainingBytesCount() int {
+	return b.m_n_remainingBytes
+}
+
+func (b *BinaryDataSource) setValues(var1 []byte, var2, var3 int, var4 IBinaryValueScanner, var5 int) *BinaryDataSource {
+	b.m_byteArray = var1
+	b.m_startIndex = var2
+	b.m_length = var3
+	b.m_n_remainingBytes = var5
+	b.m_scanner = var4
+	return b
+}
+
+func (b *BinaryDataSource) hasNext() bool {
+	return b.m_n_remainingBytes > 0
+}
+
+//todo scan()
+func (b *BinaryDataSource) next() int { //throws IOException
+	if b.m_n_remainingBytes > 0 {
+		b.m_scanner.scan(b.m_n_remainingBytes, b)
+		return b.m_length
+	}
+	return -1
 }
 
 /////////IBinaryValueScanner.interface///////////////////////
@@ -790,6 +1044,8 @@ type SchemaId struct {
 	m_value string
 }
 
+var VARSchemaId SchemaId = SchemaId{""}
+
 func (s *SchemaId) SchemaId1(var1 string) {
 	s.m_value = var1
 }
@@ -812,12 +1068,245 @@ var VARAlignmentType AlignmentType = AlignmentType{"bitPacked", "byteAligned", "
 
 ////////////end AlignmentType.class//////
 ///////////////////////////////////////////end EXIOptions.class//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////Transmogrifier.clas////////////////////////////////////////////////////////////////////////////
 type Transmogrifier struct {
-	m_xmlReader     *os.File //возможно string
-	m_saxHandler    string   // обработка SAX событий(событий XML)
-	m_outputOptions HeaderOptionsOutputType
+	m_xmlReader           *os.File //возможно string
+	m_saxHandler          string   // обработка SAX событий(событий XML)
+	m_outputOptions       HeaderOptionsOutputType
+	m_exiOptions          EXIOptions
+	SCHEMAID_NO_SCHEMA    SchemaId
+	SCHEMAID_EMPTY_SCHEMA SchemaId
 }
 
+var VARTransmogrifier Transmogrifier = Transmogrifier{
+	SCHEMAID_NO_SCHEMA:    VARSchemaId,
+	SCHEMAID_EMPTY_SCHEMA: VARSchemaId,
+}
+
+func Transmogrifier1() { //throws TransmogrifierRuntimeException
+	Transmogrifier3(false)
+}
+
+func Transmogrifier2(var1 SAXParserFactory) { //throws TransmogrifierRuntimeException
+	VARTransmogrifier.Transmogrifier4(var1, false)
+}
+
+func Transmogrifier3(var1 bool) { //throws TransmogrifierRuntimeException
+	VARTransmogrifier.Transmogrifier4(createSAXParserFactory(), var1)
+}
+
+//to do
+/*
+func (t *Transmogrifier) Transmogrifier4(var1 SAXParserFactory, var2 bool) {
+	var err error
+	if (!var1.isNamespaceAware()){
+		err = errors.New("Transmogrifier class - !var1(SAXParserFactory).isNamespaceAware()==true")
+	} else {
+		t.m_saxHandler=""//// обработка SAX событий(событий XML)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	}
+	var var3 SAXParser
+}
+*/
+
+//Transmogrifier(SAXParserFactory var1, boolean var2) throws TransmogrifierRuntimeException {
+//	if (!var1.isNamespaceAware()) {
+//	   throw new TransmogrifierRuntimeException(3, (String[])null);
+//	} else {
+//	   this.m_saxHandler = new org.openexi.sax.Transmogrifier.SAXEventHandler(this);
+//
+//	   try {
+//		  SAXParser var3 = var1.newSAXParser();
+//		  this.m_xmlReader = var3.getXMLReader();
+//		  this.m_xmlReader.setFeature("http://xml.org/sax/features/namespace-prefixes", var2);
+//	   } catch (Exception var6) {
+//		  throw new TransmogrifierRuntimeException(2, (String[])null);
+//	   }
+//
+//	   this.m_xmlReader.setContentHandler(this.m_saxHandler);
+//
+//	   try {
+//		  this.m_xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", this.m_saxHandler);
+//	   } catch (SAXException var5) {
+//		  TransmogrifierRuntimeException var4 = new TransmogrifierRuntimeException(1, new String[]{"http://xml.org/sax/properties/lexical-handler"});
+//		  var4.setException(var5);
+//		  throw var4;
+//	   }
+//
+//	   this.m_outputOptions = HeaderOptionsOutputType.none;
+//	   this.m_exiOptions = new EXIOptions();
+//	}
+// }
+
+func createSAXParserFactory() SAXParserFactory {
+	var var0 SAXParserFactory
+	var0 = VARSAXParserFactory
+	var0.namespaceAware = true
+	return var0
+}
+
+///////my SAXParserFactory/////
+type SAXParserFactory struct {
+	validating     bool
+	namespaceAware bool
+}
+
+var VARSAXParserFactory SAXParserFactory = SAXParserFactory{
+	validating:     false,
+	namespaceAware: false,
+}
+
+func (s *SAXParserFactory) isNamespaceAware() bool {
+	return s.namespaceAware
+}
+
+//public boolean isNamespaceAware() {
+//	return this.namespaceAware;
+// }
+
+//////end my SAXParserFactory//
+
+///////////////////////////////////////end Transmogrifier.class///////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////GrammarCache.class//////////////////////////////////////////////////////////////////////////////////
+type GrammarCache struct {
+	m_schema EXISchema
+}
+
+////////////////////EXISchema.class/////////////////////////
+type EXISchema struct {
+	COOKIE                      []byte
+	NIL_NODE                    int
+	NIL_VALUE                   int
+	EMPTY_STRING                int
+	NIL_GRAM                    int
+	EVENT_AT_WILDCARD           int
+	EVENT_SE_WILDCARD           int
+	EVENT_CH_UNTYPED            int
+	EVENT_CH_TYPED              int
+	MIN_EVENT_ID                int
+	EVENT_TYPE_AT               byte
+	EVENT_TYPE_SE               byte
+	EVENT_TYPE_AT_WILDCARD_NS   byte
+	EVENT_TYPE_SE_WILDCARD_NS   byte
+	TRUE_VALUE                  int
+	FALSE_VALUE                 int
+	UNBOUNDED_OCCURS            int
+	CONSTRAINT_NONE             int
+	CONSTRAINT_DEFAULT          int
+	CONSTRAINT_FIXED            int
+	WHITESPACE_PRESERVE         int
+	WHITESPACE_REPLACE          int
+	WHITESPACE_COLLAPSE         int
+	VARIANT_STRING              byte
+	VARIANT_FLOAT               byte
+	VARIANT_DECIMAL             byte
+	VARIANT_INTEGER             byte
+	VARIANT_INT                 byte
+	VARIANT_LONG                byte
+	VARIANT_DATETIME            byte
+	VARIANT_DURATION            byte
+	VARIANT_BASE64              byte
+	VARIANT_BOOLEAN             byte
+	VARIANT_HEXBIN              byte
+	INTEGER_CODEC_DEFAULT       int
+	INTEGER_CODEC_NONNEGATIVE   int
+	ANCESTRY_IDS                []int //[]byte
+	ELEMENT_NAMES               []string
+	DEFAULT_TYPABLES            []bool
+	UR_SIMPLE_TYPE              byte
+	ATOMIC_SIMPLE_TYPE          byte
+	LIST_SIMPLE_TYPE            byte
+	UNION_SIMPLE_TYPE           byte
+	m_elems                     []int
+	m_attrs                     []int
+	m_types                     []int
+	uris                        []string
+	localNames                  [][]string
+	m_localNames                [][]int
+	m_names                     []string
+	m_strings                   []string
+	m_ints                      []int
+	m_mantissas                 []int
+	m_exponents                 []int
+	m_signs                     []bool
+	m_integralDigits            []string
+	m_reverseFractionalDigits   []string
+	m_integers                  []int //big.int
+	m_longs                     []int
+	m_datetimes                 []string //XSDateTime[]
+	m_durations                 []int64  //[]Duration
+	m_binaries                  [][]byte
+	m_variantTypes              []byte
+	m_variants                  []int
+	m_computedDatetimes         []string //XSDateTime[]
+	m_variantCharacters         []string //[]Characters
+	m_n_stypes                  int
+	ancestryIds                 []byte
+	m_stypes_end                int
+	m_grammars                  []int
+	m_productions               []int
+	m_eventTypes                []byte
+	m_eventData                 []int
+	m_grammarCount              int
+	m_fragmentINodes            []int
+	m_n_fragmentElems           int
+	m_globalElementsDirectory   map[string]int
+	m_globalAttributesDirectory map[string]int
+	m_globalTypesDirectory      map[string]int
+	m_buitinTypes               []int
+	m_globalElems               []int
+	m_globalAttrs               []int
+	datatypeFactory             DatatypeFactory
+}
+
+var VAREXISchema = EXISchema{
+	COOKIE:                    []byte{36, 51, 43, 45},
+	NIL_NODE:                  -1,
+	NIL_VALUE:                 -1,
+	EMPTY_STRING:              0,
+	NIL_GRAM:                  -1,
+	EVENT_AT_WILDCARD:         -1,
+	EVENT_SE_WILDCARD:         -2,
+	EVENT_CH_UNTYPED:          -3,
+	EVENT_CH_TYPED:            -4,
+	MIN_EVENT_ID:              -4,
+	EVENT_TYPE_AT:             0,
+	EVENT_TYPE_SE:             1,
+	EVENT_TYPE_AT_WILDCARD_NS: 2,
+	EVENT_TYPE_SE_WILDCARD_NS: 3,
+	TRUE_VALUE:                1,
+	FALSE_VALUE:               0,
+	UNBOUNDED_OCCURS:          -1,
+	CONSTRAINT_NONE:           0,
+	CONSTRAINT_DEFAULT:        1,
+	CONSTRAINT_FIXED:          2,
+	WHITESPACE_PRESERVE:       0,
+	WHITESPACE_REPLACE:        1,
+	WHITESPACE_COLLAPSE:       2,
+	VARIANT_STRING:            0,
+	VARIANT_FLOAT:             1,
+	VARIANT_DECIMAL:           2,
+	VARIANT_INTEGER:           3,
+	VARIANT_INT:               4,
+	VARIANT_LONG:              5,
+	VARIANT_DATETIME:          6,
+	VARIANT_DURATION:          7,
+	VARIANT_BASE64:            8,
+	VARIANT_BOOLEAN:           9,
+	VARIANT_HEXBIN:            10,
+	INTEGER_CODEC_DEFAULT:     255,
+	INTEGER_CODEC_NONNEGATIVE: 254,
+	ANCESTRY_IDS:              []int{-1, -1, 2, 3, 4, 5, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, -1, -1, 21}, //[]byte
+	ELEMENT_NAMES:             []string{"", "", "StringType", "BooleanType", "DecimalType", "FloatType", "FloatType", "DurationType", "DateTimeType", "TimeType", "DateType", "GYearMonthType", "GYearType", "GMonthDayType", "GDayType", "GMonthType", "HexBinaryType", "Base64BinaryType", "AnyURIType", "QNameType", "QNameType", "IntegerType"},
+	DEFAULT_TYPABLES:          []bool{true, true, true, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, false, true, false, true, true, false, true, false, true, true, true, true, false, true, true, false, false, false, false, false, false, false},
+	UR_SIMPLE_TYPE:            0,
+	ATOMIC_SIMPLE_TYPE:        1,
+	LIST_SIMPLE_TYPE:          2,
+	UNION_SIMPLE_TYPE:         3,
+}
+
+/////////////////end EXISchema.class////////////////////////
+////////////////////////////////////end GrammarCache.class////////////////////////////////////////////////////////////////////////////////
 func EncodeEXI(sourceFile, destinationFile string) {
 
 }

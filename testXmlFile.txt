@@ -1,8 +1,5 @@
-<xs:element name="supportedAppProtocolReq">
-    <xs:complexType>
-        <xs:sequence>
-        
-            <xs:element name="AppProtocol" type="AppProtocolType" maxOccurs="20"/>
-        </xs:sequence>
-    </xs:complexType>
-</xs:element>
+<book> <author>Fred</author>
+	   <!--
+	   <price>20</price><currency>USD</currency>
+	   -->
+	    <isbn>23456</isbn> </book>

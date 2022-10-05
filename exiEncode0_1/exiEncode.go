@@ -2,9 +2,296 @@ package exiencode0_1
 
 import (
 	"errors"
+	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
+
+func myReverse(s string) (result string) {
+	for _, v := range s {
+		result = string(v) + result
+	}
+	return
+}
+
+func myToCharArray(x string) []string {
+	arr := make([]string, len([]rune(x)), len([]rune(x)))
+	for i := 0; i < len([]rune(x)); i++ {
+		arr[i] = string(x[i])
+	}
+	return arr
+}
+
+func myCopyArrDblByte(arr1 [][]byte, pos1 int, arr2 [][]byte, pos2 int, count int) [][]byte {
+	var err error
+	if count > len(arr1) {
+		err = errors.New("count>len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([][]byte, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	if pos1 >= len(arr1) {
+		err = errors.New("pos1>=len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([][]byte, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	if pos2 >= len(arr2) {
+		err = errors.New("pos1>=len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([][]byte, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	k := 0
+	j := pos1
+	for i := pos2; i < len(arr2); i++ {
+		arr2[i] = arr1[j]
+		j++
+		k++
+		if k == count {
+			break
+		}
+	}
+	return arr2
+}
+
+func myCopyArrByte(arr1 []byte, pos1 int, arr2 []byte, pos2 int, count int) []byte {
+	var err error
+	if count > len(arr1) {
+		err = errors.New("count>len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]byte, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	if pos1 >= len(arr1) {
+		err = errors.New("pos1>=len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]byte, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	if pos2 >= len(arr2) {
+		err = errors.New("pos1>=len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]byte, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	k := 0
+	j := pos1
+	for i := pos2; i < len(arr2); i++ {
+		arr2[i] = arr1[j]
+		j++
+		k++
+		if k == count {
+			break
+		}
+	}
+	return arr2
+}
+
+func myCopyArrInt64(arr1 []int64, pos1 int, arr2 []int64, pos2 int, count int) []int64 {
+	var err error
+	if count > len(arr1) {
+		err = errors.New("count>len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]int64, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	if pos1 >= len(arr1) {
+		err = errors.New("pos1>=len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]int64, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	if pos2 >= len(arr2) {
+		err = errors.New("pos1>=len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]int64, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	k := 0
+	j := pos1
+	for i := pos2; i < len(arr2); i++ {
+		arr2[i] = arr1[j]
+		j++
+		k++
+		if k == count {
+			break
+		}
+	}
+	return arr2
+}
+
+func myCopyArrBool(arr1 []bool, pos1 int, arr2 []bool, pos2 int, count int) []bool {
+	var err error
+	if count > len(arr1) {
+		err = errors.New("count>len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]bool, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	if pos1 >= len(arr1) {
+		err = errors.New("pos1>=len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]bool, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	if pos2 >= len(arr2) {
+		err = errors.New("pos1>=len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]bool, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	k := 0
+	j := pos1
+	for i := pos2; i < len(arr2); i++ {
+		arr2[i] = arr1[j]
+		j++
+		k++
+		if k == count {
+			break
+		}
+	}
+	return arr2
+}
+
+func myCopyArrString(arr1 []string, pos1 int, arr2 []string, pos2 int, count int) []string {
+	var err error
+	if count > len(arr1) {
+		err = errors.New("count>len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]string, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	if pos1 >= len(arr1) {
+		err = errors.New("pos1>=len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]string, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	if pos2 >= len(arr2) {
+		err = errors.New("pos1>=len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]string, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	k := 0
+	j := pos1
+	for i := pos2; i < len(arr2); i++ {
+		arr2[i] = arr1[j]
+		j++
+		k++
+		if k == count {
+			break
+		}
+	}
+	return arr2
+}
+
+func myCopyArrInt(arr1 []int, pos1 int, arr2 []int, pos2 int, count int) []int {
+	var err error
+	if count > len(arr1) {
+		err = errors.New("count>len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]int, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	if pos1 >= len(arr1) {
+		err = errors.New("pos1>=len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]int, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	if pos2 >= len(arr2) {
+		err = errors.New("pos1>=len(arr1)")
+	}
+	if err != nil {
+		fmt.Println("errors")
+		errorArr := make([]int, len(arr2), len(arr2))
+		copy(arr2, errorArr)
+		return arr2
+	}
+
+	k := 0
+	j := pos1
+	for i := pos2; i < len(arr2); i++ {
+		arr2[i] = arr1[j]
+		j++
+		k++
+		if k == count {
+			break
+		}
+	}
+	return arr2
+}
 
 /////////////////////HeaderOptionsOutputType.class///////////////
 type HeaderOptionsOutputType struct {
@@ -919,7 +1206,7 @@ func (q *QName) QName2(var1, var2 string) {
 	q.qName = var1
 	var var3 int = strings.Index(q.qName, ":")
 	if var3 != -1 {
-		var var4 int = len(q.qName)
+		var var4 int = len([]rune(q.qName)) //add []rune
 		var var5 int = var4 - 1
 		//label40:
 		for var5 > 0 {
@@ -1238,10 +1525,10 @@ type EXISchema struct {
 	m_binaries                  [][]byte
 	m_variantTypes              []byte
 	m_variants                  []int
-	m_computedDatetimes         []string //XSDateTime[]
-	m_variantCharacters         []string //[]Characters
+	m_computedDatetimes         []string     //XSDateTime[]
+	m_variantCharacters         []Characters //string //[]Characters
 	m_n_stypes                  int
-	ancestryIds                 []byte
+	ancestryIds                 []int //[]byte
 	m_stypes_end                int
 	m_grammars                  []int
 	m_productions               []int
@@ -1250,9 +1537,9 @@ type EXISchema struct {
 	m_grammarCount              int
 	m_fragmentINodes            []int
 	m_n_fragmentElems           int
-	m_globalElementsDirectory   map[string]int
-	m_globalAttributesDirectory map[string]int
-	m_globalTypesDirectory      map[string]int
+	m_globalElementsDirectory   map[string][]int
+	m_globalAttributesDirectory map[string][]int
+	m_globalTypesDirectory      map[string][]int
 	m_buitinTypes               []int
 	m_globalElems               []int
 	m_globalAttrs               []int
@@ -1305,8 +1592,665 @@ var VAREXISchema = EXISchema{
 	UNION_SIMPLE_TYPE:         3,
 }
 
+func (e *EXISchema) EXISchema(var1 []int, var2 int, var3 []int, var4 int, var5 []int, var6 int, var7 []string, var8 int, var9 []string, var10 int, var11 [][]int, var12 []string, var13 int, var14 []int, var15 int, var16 []int, var17 []int, var18 int, var19 []bool, var20 []string, var21 []string, var22 int, var23 []int /*big.int*/, var24 int, var25 []int, var26 int, var27 []string /*[]XSDateTime*/, var28 int, var29 []int64 /*[]Duration*/, var30 int, var31 [][]byte, var32 int, var33 []byte, var34 []int, var35 int, var36 []int, var37 int, var38 int, var39 []int, var40 int, var41 []byte, var42 []int, var43 int, var44 int) {
+	e.m_elems = make([]int, var2, var2)
+	copy(myCopyArrInt(var1, 0, e.m_elems, 0, var2), e.m_elems) //copy(e.m_elems, var1) //System.arraycopy(var1, 0, this.m_elems, 0, var2);
+
+	e.m_attrs = make([]int, var4, var4)
+	copy(myCopyArrInt(var3, 0, e.m_attrs, 0, var4), e.m_attrs) //copy(e.m_attrs, var3) //System.arraycopy(var3, 0, this.m_attrs, 0, var4);
+
+	e.m_types = make([]int, var6, var6)
+	copy(myCopyArrInt(var5, 0, e.m_types, 0, var6), e.m_types) //copy(e.m_types, var5) //System.arraycopy(var5, 0, this.m_types, 0, var6);
+
+	e.uris = make([]string, var8, var8)
+	copy(myCopyArrString(var7, 0, e.uris, 0, var8), e.uris) //copy(e.uris, var7)    //System.arraycopy(var7, 0, this.uris, 0, var8);
+
+	e.m_localNames = make([][]int, len(var11), len(var11)) //this.m_localNames = new int[var11.length][];
+	copy(e.m_localNames, var11)                            /*
+										for(int var45 = 0; var45 < var11.length; ++var45) {
+		        							this.m_localNames[var45] = new int[var11[var45].length];
+		         							System.arraycopy(var11[var45], 0, this.m_localNames[var45], 0, var11[var45].length);
+		      							}
+	*/
+
+	e.m_names = make([]string, var10, var10)
+	copy(myCopyArrString(var9, 0, e.m_names, 0, var10), e.m_names) //copy(e.m_names, var9)    //System.arraycopy(var9, 0, this.m_names, 0, var10);
+
+	e.m_strings = make([]string, var13, var13)                          // String[var13];
+	copy(myCopyArrString(var12, 0, e.m_strings, 0, var13), e.m_strings) //copy(e.m_strings, var12) //System.arraycopy(var12, 0, this.m_strings, 0, var13);
+
+	e.m_ints = make([]int, var15, var15)                       //int[var15];
+	copy(myCopyArrInt(var14, 0, e.m_ints, 0, var15), e.m_ints) //copy(e.m_ints, var14)    //System.arraycopy(var14, 0, this.m_ints, 0, var15);
+
+	e.m_mantissas = make([]int, var18, var18)                            //long[var18];
+	copy(myCopyArrInt(var16, 0, e.m_mantissas, 0, var18), e.m_mantissas) //copy(e.m_mantissas, var16) //System.arraycopy(var16, 0, this.m_mantissas, 0, var18);
+
+	e.m_exponents = make([]int, var18, var18)                            //int[var18];
+	copy(myCopyArrInt(var17, 0, e.m_exponents, 0, var18), e.m_exponents) //copy(e.m_exponents, var17) //System.arraycopy(var17, 0, this.m_exponents, 0, var18);
+
+	e.m_signs = make([]bool, var22, var22)                        //boolean[var22];
+	copy(myCopyArrBool(var19, 0, e.m_signs, 0, var22), e.m_signs) //copy(e.m_signs, var19)      //System.arraycopy(var19, 0, this.m_signs, 0, var22);
+
+	e.m_integralDigits = make([]string, var22, var22)                                 //String[var22];
+	copy(myCopyArrString(var20, 0, e.m_integralDigits, 0, var22), e.m_integralDigits) //copy(e.m_integralDigits, var20) //System.arraycopy(var20, 0, this.m_integralDigits, 0, var22);
+
+	e.m_reverseFractionalDigits = make([]string, var22, var22)                                          //String[var22];
+	copy(myCopyArrString(var21, 0, e.m_reverseFractionalDigits, 0, var22), e.m_reverseFractionalDigits) //copy(e.m_reverseFractionalDigits, var21) //System.arraycopy(var21, 0, this.m_reverseFractionalDigits, 0, var22);
+
+	e.m_integers = make([]int /*big.int*/, var24, var24)               //BigInteger[var24];
+	copy(myCopyArrInt(var23, 0, e.m_integers, 0, var24), e.m_integers) //copy(e.m_integers, var23)  //System.arraycopy(var23, 0, this.m_integers, 0, var24);
+
+	e.m_longs = make([]int, var26, var26)                        //long[var26];
+	copy(myCopyArrInt(var25, 0, e.m_longs, 0, var26), e.m_longs) //copy(e.m_longs, var25)     //System.arraycopy(var25, 0, this.m_longs, 0, var26);
+
+	e.m_datetimes = make([]string /*XSDateTime*/, var28, var28)             //new XSDateTime[var28];
+	copy(myCopyArrString(var27, 0, e.m_datetimes, 0, var28), e.m_datetimes) //copy(e.m_datetimes, var27) //System.arraycopy(var27, 0, this.m_datetimes, 0, var28);
+
+	e.m_durations = make([]int64 /*Duration*/, var30, var30)               //Duration[var30];
+	copy(myCopyArrInt64(var29, 0, e.m_durations, 0, var30), e.m_durations) //copy(e.m_durations, var29) //System.arraycopy(var29, 0, this.m_durations, 0, var30);
+
+	e.m_binaries = make([][]byte, var32, var32)                            //byte[var32][];
+	copy(myCopyArrDblByte(var31, 0, e.m_binaries, 0, var32), e.m_binaries) //copy(e.m_binaries, var31)   //System.arraycopy(var31, 0, this.m_binaries, 0, var32);
+
+	e.m_variants = make([]int, var35, var35)                           //int[var35];
+	copy(myCopyArrInt(var34, 0, e.m_variants, 0, var35), e.m_variants) //copy(e.m_variants, var34)   //System.arraycopy(var34, 0, this.m_variants, 0, var35);
+
+	e.m_variantTypes = make([]byte, var35, var35)                               //byte[var35];
+	copy(myCopyArrByte(var33, 0, e.m_variantTypes, 0, var35), e.m_variantTypes) //copy(e.m_variantTypes, var33) //System.arraycopy(var33, 0, this.m_variantTypes, 0, var35);
+
+	e.m_grammars = make([]int, var37, var37)                           //int[var37];
+	copy(myCopyArrInt(var36, 0, e.m_grammars, 0, var37), e.m_grammars) //copy(e.m_grammars, var36)    //System.arraycopy(var36, 0, this.m_grammars, 0, var37);
+
+	e.m_productions = make([]int, var40, var40)                              //int[var40];
+	copy(myCopyArrInt(var39, 0, e.m_productions, 0, var40), e.m_productions) //copy(e.m_productions, var39) //System.arraycopy(var39, 0, this.m_productions, 0, var40);
+
+	e.m_eventTypes = make([]byte, var43)                                    //byte[var43];
+	copy(myCopyArrByte(var41, 0, e.m_eventTypes, 0, var43), e.m_eventTypes) //copy(e.m_eventTypes, var41)  //System.arraycopy(var41, 0, this.m_eventTypes, 0, var43);
+
+	e.m_eventData = make([]int, var43, var43)                            //int[var43];
+	copy(myCopyArrInt(var42, 0, e.m_eventData, 0, var43), e.m_eventData) //copy(e.m_eventData, var42)   //System.arraycopy(var42, 0, this.m_eventData, 0, var43);
+
+	e.m_n_stypes = var44
+	e.m_grammarCount = var38
+	e.setUp()
+}
+
+func (e *EXISchema) setUp() {
+	e.computeAncestryIds()
+	e.populateLocalNames()
+	e.computeGlobalDirectory()
+	e.computeVariantCharacters()
+	e.computeDateTimes()
+	e.buildFragmentsArray()
+}
+
+func (e *EXISchema) computeAncestryIds() {
+	e.ancestryIds = make([]int, e.m_n_stypes+1, e.m_n_stypes+1)
+	e.ancestryIds[0] = -1
+	var var1 int = 6
+	for var2 := 0; var2 < e.m_n_stypes; var1 += _getTypeSize(var1, e.m_types, e.ancestryIds) { //for(int var2 = 0; var2 < this.m_n_stypes; var1 += _getTypeSize(var1, this.m_types, this.ancestryIds)) {
+		var var3 int = e.getSerialOfType(var1) //	int var3 = this.getSerialOfType(var1);
+
+		if 0 >= var3 && var3 > e.m_n_stypes && e.isSimpleType(var1) { //	assert 0 < var3 && var3 <= this.m_n_stypes && this.isSimpleType(var1);
+			panic("EXISchema.class, func computeAncestryIds, 0 >= var3 && var3 > e.m_n_stypes && e.isSimpleType(var1)")
+		}
+		var2++
+		var var4 int                             //byte
+		if e.getVarietyOfSimpleType(var1) == 1 { //	if (this.getVarietyOfSimpleType(var1) == 1) {
+			var var6 int //	   int var6;
+
+			var var5 int                   //
+			var6 = e.getSerialOfType(var5) //
+
+			for var5 = var1; var6 >= 22; var5 = e.getBaseTypeOfSimpleType(var5) {
+			} //for(int var5 = var1; (var6 = this.getSerialOfType(var5)) >= 22; var5 = this.getBaseTypeOfSimpleType(var5)) {
+
+			if var6 < 2 { //	   assert var6 >= 2;
+				panic("EXISchema.class, func computeAncestryIds, var6 < 2")
+			}
+			var4 = VAREXISchema.ANCESTRY_IDS[var6]
+		} else {
+			var4 = -1
+		}
+
+		e.ancestryIds[var3] = var4
+	}
+
+}
+
+//todo мaccив проверить на коректность заполнения !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+func (e *EXISchema) populateLocalNames() { //   private void populateLocalNames() {
+	e.localNames = make([][]string, len(e.m_localNames), len(e.m_localNames)) //	this.localNames = new String[this.m_localNames.length][];
+	for var1 := 0; var1 < len(e.m_localNames); var1++ {                       //	for(int var1 = 0; var1 < this.m_localNames.length; ++var1) {
+		var var2 []string = make([]string, len(e.m_localNames[var1]), len(e.m_localNames[var1])) //String[] var2 = new String[this.m_localNames[var1].length];
+		/*
+					for(int var3 = 0; var3 < var2.length; ++var3) {
+			            var2[var3] = this.m_names[this.m_localNames[var1][var3]];
+			         }
+		*/
+		for var3 := 0; var3 < len(var2); var3++ {
+			var2[var3] = e.m_names[e.m_localNames[var1][var3]]
+		}
+		//copy(var2, (e.m_names[e.m_localNames[var1]]))
+		//copy(var2, e.m_names)
+		e.localNames[var1] = var2 //var2[var3] = this.m_names[this.m_localNames[var1][var3]];
+	}
+}
+
+//todo-проверить правельность заполнение массива/мапы!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+func (e *EXISchema) computeGlobalDirectory() { //private void computeGlobalDirectory() {
+	e.m_globalElementsDirectory = make(map[string][]int)   //this.m_globalElementsDirectory = new HashMap();
+	e.m_globalAttributesDirectory = make(map[string][]int) //this.m_globalAttributesDirectory = new HashMap();
+	e.m_globalTypesDirectory = make(map[string][]int)      ///this.m_globalTypesDirectory = new HashMap();
+	var var1 []int                                         //ArrayList var1 = new ArrayList();
+
+	var var2 int                                     //int var2;
+	for var2 = 0; var2 < len(e.m_elems); var2 += 4 { //for(var2 = 0; var2 < this.m_elems.length; var2 += 4) {
+		if e.isGlobalElem(var2) { // if (this.isGlobalElem(var2)) {
+			var var3 string = e.getNameOfElem(var2)                       //String var3 = this.getNameOfElem(var2);
+			var var4 []int                                                //int[] var4;
+			if value, inMap := e.m_globalElementsDirectory[var3]; inMap { //if ((var4 = (int[])this.m_globalElementsDirectory.get(var3)) != null) {
+				//myValue := make([]int, 1, 1)
+				//myValue[0] = value //какова длинна массива!!!???!!!????!!!?!?!?!?!?!?!??!?!?!?!?
+				var4 = value
+				var5 := make([]int, len(var4)+1, len(var4)+1) //int[] var5 = new int[var4.length + 1];
+				copy(var5, var4)                              //System.arraycopy(var4, 0, var5, 0, var4.length);
+				var5[len(var4)] = var2                        //var5[var4.length] = var2;
+				var4 = var5                                   //var4 = var5;
+			} else {
+				var4 = []int{var2} //var4 = new int[]{var2};
+			}
+
+			e.m_globalElementsDirectory[var3] = var4 //this.m_globalElementsDirectory.put(var3, var4);
+			var1 = append(var1, var2)                //var1.add(var2);
+		}
+	}
+
+	e.m_globalElems = make([]int, len(var1), len(var1)) //this.m_globalElems = new int[var1.size()];
+
+	if len(e.m_globalElems) != e.getGlobalElemCountOfSchema() { //assert this.m_globalElems.length == this.getGlobalElemCountOfSchema();//зачем это!!!?????????????????????????????
+		panic("EXISchema.class, func computeGlobalDirectory, len(e.m_globalElems) != e.getGlobalElemCountOfSchema()")
+	}
+	for var2 = 0; var2 < len(e.m_globalElems); var2++ { //for(var2 = 0; var2 < this.m_globalElems.length; ++var2) {
+		e.m_globalElems[var2] = int(var1[var2]) //this.m_globalElems[var2] = (Integer)var1.get(var2);
+	}
+
+	var var9 []int //ArrayList var9 = new ArrayList();
+
+	var var7 []int                                      //int[] var7;
+	var var10 int                                       //int var10;
+	var var11 int                                       //int var11;
+	for var10 = 0; var10 < len(e.m_attrs); var10 += 3 { //for(var10 = 0; var10 < this.m_attrs.length; var10 += 3) {
+		if e.isGlobalAttr(var10) { //if (this.isGlobalAttr(var10)) {
+			var11 = e.m_attrs[var10+0]                                //var11 = this.m_attrs[var10 + 0];
+			var var12 int = e.m_attrs[10+1]                           //int var12 = this.m_attrs[var10 + 1];
+			var var6 string = e.m_names[e.m_localNames[var12][var11]] //String var6 = this.m_names[this.m_localNames[var12][var11]];
+
+			if value, inMap := e.m_globalAttributesDirectory[var6]; inMap { //if ((var7 = (int[])this.m_globalAttributesDirectory.get(var6)) != null) {
+				var7 = value
+				var var8 []int = make([]int, len(var7)+1, len(var7)+1) //int[] var8 = new int[var7.length + 1];
+				copy(var8, var7)                                       //System.arraycopy(var7, 0, var8, 0, var7.length);
+				var8[len(var7)] = var10                                //var8[var7.length] = var10;
+				var7 = var8                                            //var7 = var8;
+			} else { //} else {
+				var7 = []int{var10} //var7 = new int[]{var10};
+			}
+
+			e.m_globalAttributesDirectory[var6] = var7 //this.m_globalAttributesDirectory.put(var6, var7);
+			var9 = append(var9, var10)                 //var9.add(var10);
+		}
+	}
+
+	e.m_globalAttrs = make([]int, len(var9), len(var9)) //this.m_globalAttrs = new int[var9.size()];
+
+	for var10 = 0; var10 < len(e.m_globalAttrs); var10++ { //for(var10 = 0; var10 < this.m_globalAttrs.length; ++var10) {
+		e.m_globalAttrs[var10] = int(var9[var10]) //this.m_globalAttrs[var10] = (Integer)var9.get(var10);
+	}
+
+	e.m_buitinTypes = make([]int, 46, 46) //this.m_buitinTypes = new int[46];
+	var10 = 0                             //var10 = 0;
+
+	for var11 = 0; var10 < len(e.m_types); var11++ { //for(var11 = 0; var10 < this.m_types.length; ++var11) {
+		var var13 string = e.getNameOfType(var10) //String var13 = this.getNameOfType(var10);
+		if var11 < 46 {                           //if (var11 < 46) {
+			if e.getUriOfType(var10) == 3 && len(([]rune(var13))) != 0 { //assert this.getUriOfType(var10) == 3 && var13.length() != 0;//add []rune
+				panic("EXISchema.class, func computeGlobalDirectory, e.getUriOfType(var10) == 3 && len(([]rune(var13))) != 0 ")
+			}
+			e.m_buitinTypes[var11] = var10 //this.m_buitinTypes[var11] = var10;
+		}
+
+		if !("" == var13) { //if (!"".equals(var13)) {
+			var var14 []int                                             //int[] var14;
+			if value, inMap := e.m_globalTypesDirectory[var13]; inMap { //if ((var14 = (int[])this.m_globalTypesDirectory.get(var13)) != null) {
+				var14 = value
+				var7 = make([]int, len(var14)+1, len(var14)+1) //var7 = new int[var14.length + 1];
+				copy(var7, var14)                              //System.arraycopy(var14, 0, var7, 0, var14.length);
+				var7[len(var14)] = var10                       //var7[var14.length] = var10;
+				var14 = var7                                   //var14 = var7;
+			} else {
+				var14 = []int{var10} //var14 = new int[]{var10};
+			}
+
+			e.m_globalAttributesDirectory[var13] = var14 //this.m_globalTypesDirectory.put(var13, var14);
+		}
+
+		var10 += _getTypeSize(var10, e.m_types, e.ancestryIds) //var10 += _getTypeSize(var10, this.m_types, this.ancestryIds);
+	}
+
+}
+
+func (e *EXISchema) computeVariantCharacters() { //private void computeVariantCharacters() {
+	var var1 int = len(e.m_variants)                                  //int var1 = this.m_variants.length;
+	var var2 []Characters = /*string*/ make([]Characters, var1, var1) //Characters[] var2 = new Characters[var1];
+
+	for var3 := 0; var3 < var1; var3++ {
+		var var4 string = e.computeVariantCharacters(var3)                                            //String var4 = this.computeVariantCharacters(var3);
+		var2[var3] = CHARACTERS_EMPTY.Characters1(myToCharArray(var4), 0, len(([]rune(var4))), false) //var2[var3] = new Characters(var4.toCharArray(), 0, var4.length(), false); //add []rune
+	}
+
+	e.m_variantCharacters = var2 //this.m_variantCharacters = var2;
+}
+
+func (e *EXISchema) computeVariantCharacters(var1 int) string { //private String computeVariantCharacters(int var1) {
+	var var2 string = ""            //String var2 = "";
+	var var3 []byte                 //byte[] var3;
+	switch e.m_variantTypes[var1] { //switch(this.m_variantTypes[var1]) {
+	case 0: //case 0:
+		var2 = e.getStringValueOfVariant(var1) //var2 = this.getStringValueOfVariant(var1);
+		//break;
+	case 1: //case 1:
+		var var4 int = e.m_variants[var1]  //int var4 = this.m_variants[var1];
+		var var5 int = e.m_mantissas[var4] //long var5 = this.m_mantissas[var4];
+		var var7 int                       //int var7;
+		if e.m_exponents[var4] != 0 {      //if ((var7 = this.m_exponents[var4]) != 0) {
+			var7 = e.m_exponents[var4]
+			if var7 == -16384 { //if (var7 == -16384) {
+				if var5 == int(1) { //var2 = var5 == 1L ? "INF" : (var5 == -1L ? "-INF" : "NaN");
+					var2 = "INF"
+				} else if var5 == int(-1) {
+					var2 = "-INF"
+				} else {
+					var2 = "NaN"
+				}
+			} else {
+				var2 = strconv.Itoa(var5) + "E" + strconv.Itoa(var7) //var2 = Long.toString(var5) + "E" + Integer.toString(var7);//
+			}
+		} else {
+			var2 = strconv.Itoa(var5) //var2 = Long.toString(var5);
+		}
+		//break;
+	case 2: //case 2:
+		var var8 bool = e.getSignOfDecimalVariant(var1)                                  //boolean var8 = this.getSignOfDecimalVariant(var1);
+		var var9 string = e.getIntegralDigitsOfDecimalVariant(var1)                      //String var9 = this.getIntegralDigitsOfDecimalVariant(var1);
+		var var10 string = myReverse(e.getReverseFractionalDigitsOfDecimalVariant(var1)) //String var10 = (new StringBuilder(this.getReverseFractionalDigitsOfDecimalVariant(var1))).reverse().toString();
+		var var11 bool                                                                   //boolean var11;
+		if "0" == (var10) && "0" == (var9) {                                             //if ((var11 = "0".equals(var10)) && "0".equals(var9)) {
+			var11 = ("0" == (var10))
+			var2 = "0" //var2 = "0";
+		} else {
+			var11 = ("0" == (var10)) //my add!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			if var8 {                //if (var8) {
+				var2 = var2 + `-` //var2 = var2 + '-';
+			}
+
+			var2 = var2 + var9 //var2 = var2 + var9;
+			if !var11 {        //if (!var11) {
+				var2 = var2 + `.`   //var2 = var2 + '.';
+				var2 = var2 + var10 //var2 = var2 + var10;
+			}
+		}
+		//break;
+	case 3: //case 3:
+		var var12 int = /*BigInteger*/ e.getIntegerValueOfVariant(var1) //BigInteger var12 = this.getIntegerValueOfVariant(var1);
+		var2 = strconv.Itoa(var12)                                      //var2 = var12.toString();
+		//break;
+	case 4: //case 4:
+		var var13 int = e.getIntValueOfVariant(var1) //int var13 = this.getIntValueOfVariant(var1);
+		var2 = strconv.Itoa(var13)                   //var2 = Integer.toString(var13);
+		//break;
+	case 5: //case 5:
+		var var14 int = e.getLongValueOfVariant(var1) //long var14 = this.getLongValueOfVariant(var1);
+		var2 = strconv.Itoa(var14)                    //var2 = Long.toString(var14);
+		//break;
+	case 6: //case 6:
+		var var16 string = /*XSDateTime*/ e.getDateTimeValueOfVariant(var1) //XSDateTime var16 = this.getDateTimeValueOfVariant(var1);
+		var2 = var16                                                        //var2 = var16.toString();
+		//break;
+	case 7: //case 7:
+		var2 = strconv.Itoa(int(e.getDurationValueOfVariant(var1))) //var2 = this.getDurationValueOfVariant(var1).toString();
+		//break;
+	case 8: //case 8:
+		var3 = e.getBinaryValueOfVariant(var1) //var3 = this.getBinaryValueOfVariant(var1);
+		//var var17 int = //int var17 = var3.length / 3 << 2;
+		//if (var3.length % 3 != 0) {
+		//var17 += 4;
+		//}
+
+		//var17 += var17 / 76;
+		//char[] var18 = new char[var17];
+		//int var19 = Base64.encode(var3, 0, var3.length, var18, 0);
+		//var2 = new String(var18, 0, var19);
+		//break;
+	case 9: //case 9:
+		panic("EXISchema.class, func computeVariantCharacters, case 9") //assert false;
+
+		return "nil" //return null
+	case 10: //case 10:
+		var3 = e.getBinaryValueOfVariant(var1) //var3 = this.getBinaryValueOfVariant(var1);
+		//StringBuffer var20 = new StringBuffer();
+		//HexBin.encode(var3, var3.length, var20);
+		//var2 = var20.toString();
+		//break;
+	default: //default:
+		panic("EXISchema.class, func computeVariantCharacters, default") //assert false;
+	}
+
+	return var2 //return var2;
+}
+
+func (e *EXISchema) getDurationValueOfVariant(var1 int) int64 /*Duration*/ { //public Duration getDurationValueOfVariant(int var1) {
+	if 0 > var1 && e.m_variantTypes[var1] != 7 { //assert 0 <= var1 && this.m_variantTypes[var1] == 7;
+		panic("EXISchema.class, func getDurationValueOfVariant, 0 > var1 && e.m_variantTypes[var1] != 7")
+	}
+	return e.m_durations[e.m_variants[var1]]
+}
+
+func (e *EXISchema) getDateTimeValueOfVariant(var1 int) string /*XSDateTime*/ { //public XSDateTime getDateTimeValueOfVariant(int var1) {
+	if 0 > var1 && e.m_variantTypes[var1] != 6 { //assert 0 <= var1 && this.m_variantTypes[var1] == 6;
+		panic("EXISchema.class, func getDateTimeValueOfVariant, 0 > var1 && e.m_variantTypes[var1] != 6 ")
+	}
+	return e.m_datetimes[e.m_variants[var1]]
+}
+
+func (e *EXISchema) getLongValueOfVariant(var1 int) int { //public long getLongValueOfVariant(int var1) {
+	if 0 > var1 && e.m_variantTypes[var1] != 5 { //assert 0 <= var1 && this.m_variantTypes[var1] == 5;
+		panic("EXISchema.class, func getLongValueOfVariant, 0 > var1 && e.m_variantTypes[var1] != 5")
+	}
+	return e.m_longs[e.m_variants[var1]]
+}
+
+func (e *EXISchema) getIntValueOfVariant(var1 int) int { //public int getIntValueOfVariant(int var1) {
+	if 0 > var1 && e.m_variantTypes[var1] != 4 { //assert 0 <= var1 && this.m_variantTypes[var1] == 4;
+		panic("EXISchema.class, func getIntValueOfVariant, 0 > var1 && e.m_variantTypes[var1] != 4")
+	}
+	return e.m_ints[e.m_variants[var1]]
+}
+
+func (e *EXISchema) getIntegerValueOfVariant(var1 int) int /*BigInteger*/ { //public BigInteger getIntegerValueOfVariant(int var1) {
+	if 0 > var1 && e.m_variantTypes[var1] != 3 { // assert 0 <= var1 && this.m_variantTypes[var1] == 3;
+		panic("EXISchema.class, func getIntegerValueOfVariant, 0 > var1 && e.m_variantTypes[var1] != 3")
+	}
+	return e.m_integers[e.m_variants[var1]]
+}
+
+func (e *EXISchema) getReverseFractionalDigitsOfDecimalVariant(var1 int) string { //public String getReverseFractionalDigitsOfDecimalVariant(int var1) {
+	if 0 > var1 && e.m_variantTypes[var1] != 2 { //assert 0 <= var1 && this.m_variantTypes[var1] == 2;
+		panic("EXISchema.class, func getReverseFractionalDigitsOfDecimalVariant, 0 > var1 && e.m_variantTypes[var1] != 2 ")
+	}
+	return e.m_reverseFractionalDigits[e.m_variants[var1]]
+}
+
+func (e *EXISchema) getIntegralDigitsOfDecimalVariant(var1 int) string { //public String getIntegralDigitsOfDecimalVariant(int var1) {
+	if 0 > var1 && e.m_variantTypes[var1] != 2 { //assert 0 <= var1 && this.m_variantTypes[var1] == 2;
+		panic("EXISchema.class, func getIntegralDigitsOfDecimalVariant, 0 > var1 && e.m_variantTypes[var1] != 2 ")
+	}
+	return e.m_integralDigits[e.m_variants[var1]]
+}
+
+func (e *EXISchema) getSignOfDecimalVariant(var1 int) bool { //public boolean getSignOfDecimalVariant(int var1) {
+	if 0 > var1 && e.m_variantTypes[var1] != 2 { //assert 0 <= var1 && this.m_variantTypes[var1] == 2;
+		panic("EXISchema.class, func getSignOfDecimalVariant, 0 > var1 && e.m_variantTypes[var1] != 2 ")
+	}
+	return e.m_signs[e.m_variants[var1]]
+}
+
+func (e *EXISchema) getStringValueOfVariant(var1 int) string { //public String getStringValueOfVariant(int var1) {
+	if (0 > var1) && (e.m_variantTypes[var1] != 0) { //assert 0 <= var1 && this.m_variantTypes[var1] == 0
+		panic("EXISchema.class, func getStringValueOfVariant, 0 > var1 && this.m_variantTypes[var1] != 0")
+	}
+	return e.m_strings[e.m_variants[var1]]
+}
+
+func (e *EXISchema) getUriOfType(var1 int) int { //public int getUriOfType(int var1) {
+	if 0 > var1 { //assert 0 <= var1;
+		panic("EXISchema.class, func getUriOfType, 0 > var1")
+	}
+	return e.m_types[var1+1]
+}
+
+func (e *EXISchema) getNameOfType(var1 int) string { //public String getNameOfType(int var1) {
+	if 0 > var1 { //assert 0 <= var1;
+		panic("EXISchema.class, func getNameOfType, 0 > var1")
+	}
+	var var2 = e.m_types[var1+0] //int var2 = this.m_types[var1 + 0];
+	if var2 != -1 {
+		var var3 = e.m_types[var1+1]                 //int var3 = this.m_types[var1 + 1];
+		return e.m_names[e.m_localNames[var3][var2]] //return this.m_names[this.m_localNames[var3][var2]];
+	} else {
+		return ""
+	}
+}
+
+func (e *EXISchema) isGlobalAttr(var1 int) bool { //public boolean isGlobalAttr(int var1) {
+	var var2 int = e.m_attrs[var1+2]
+	return (var2 & 0x80000000 /*Integer.MIN_VALUE*/) != 0
+}
+
+func (e *EXISchema) getGlobalElemCountOfSchema() int { //public int getGlobalElemCountOfSchema() {
+	return len(e.m_globalElems)
+}
+
+func (e *EXISchema) isGlobalElem(var1 int) bool { //public boolean isGlobalElem(int var1) {
+	var var2 int = e.m_elems[var1+2]
+	return (var2 & 0x80000000 /*Integer.MIN_VALUE*/) != 0
+}
+
+func (e *EXISchema) getNameOfElem(var1 int) string { //public String getNameOfElem(int var1) {
+	if 0 > var1 { //assert 0 <= var1;
+		panic("EXISchema.class, func getNameOfElem, 0 > var1")
+	}
+	var var2 int = e.m_elems[var1+0] //int var2 = this.m_elems[var1 + 0];
+	if var2 != -1 {
+		var var3 int = e.m_elems[var1+1]
+		return e.m_names[e.m_localNames[var3][var2]]
+	} else {
+		return ""
+	}
+}
+
+func (e *EXISchema) getBaseTypeOfSimpleType(var1 int) int { //public int getBaseTypeOfSimpleType(int var1) {
+	if 0 > var1 && e.m_types[var1+5] >= 0 { //	assert 0 <= var1 && this.m_types[var1 + 5] < 0;
+		panic("EXISchema.class, func getBaseTypeOfSimpleType, 0 > var1 && e.m_types[var1 + 5] >= 0")
+	}
+	return e.m_types[var1+6]
+}
+
+func (e *EXISchema) getVarietyOfSimpleType(var1 int) byte { //public byte getVarietyOfSimpleType(int var1) {
+	if 0 > var1 && e.m_types[var1+5] >= 0 { //  assert 0 <= var1 && this.m_types[var1 + 5] < 0;
+		panic("EXISchema.class, func getVarietyOfSimpleType, 0 > var1 && e.m_types[var1 + 5] >= 0")
+	}
+	return _getVarietyOfSimpleType(var1, e.m_types)
+}
+
+func (e *EXISchema) isSimpleType(var1 int) bool { //   public boolean isSimpleType(int var1) {
+	return (e.m_types[var1+5] & 0x80000000 /*Integer.MIN_VALUE*/) != 0
+}
+
+func (e *EXISchema) getSerialOfType(var1 int) int { //public int getSerialOfType(int var1) {
+	if 0 > var1 { //	assert 0 <= var1;
+		panic("EXISchema.class, func getSerialOfType, 0 > var1")
+	}
+	return e.m_types[var1+2]
+}
+
+func _getTypeSize(var0 int, var1 []int, var2 []int /*[]byte*/) int { //public static int _getTypeSize(int var0, int[] var1, byte[] var2) {
+	if var0 == -1 {
+		panic("EXISchema.class, func _getTypeSize, var0==-1")
+	} //      assert var0 != -1;
+
+	if (var1[var0+5] & 0x80000000 /*Integer.MIN_VALUE*/) != 0 { //      return (var1[var0 + 5] & Integer.MIN_VALUE) != 0 ? _getSizeOfSimpleType(var0, var1, var2) : 6;
+		return _getSizeOfSimpleType(var0, var1, var2)
+	}
+	return 6
+}
+
+func _getSizeOfSimpleType(var0 int, var1 []int, var2 []int /*[]byte*/) int { //private static int _getSizeOfSimpleType(int var0, int[] var1, byte[] var2) {
+	var var3 int = 8                                    //      int var3 = 8;
+	var var4 byte = _getVarietyOfSimpleType(var0, var1) //      byte var4 = _getVarietyOfSimpleType(var0, var1);
+	if var4 == 1 {                                      //      if (var4 == 1) {
+		if _isEnumeratedAtomicSimpleType(var0, var1) { //         if (_isEnumeratedAtomicSimpleType(var0, var1)) {
+			var3 += (1 + _getEnumerationFacetCountOfAtomicSimpleType(var0, var1, var2)) //            var3 += 1 + _getEnumerationFacetCountOfAtomicSimpleType(var0, var1, var2);
+		}
+
+		if var2[var1[var0+2]] == 2 { //         if (var2[var1[var0 + 2]] == 2) {
+			var3 += _getRestrictedCharacterCountOfStringSimpleType(var0, var1, var2) //            var3 += _getRestrictedCharacterCountOfStringSimpleType(var0, var1, var2);
+		}
+	}
+
+	return var3
+}
+func _getVarietyOfSimpleType(var0 int, var1 []int) byte { //public static byte _getVarietyOfSimpleType(int var0, int[] var1) {
+	return byte(var1[var0+5] & 3)
+}
+
+func _isEnumeratedAtomicSimpleType(var0 int, var1 []int) bool { //private static boolean _isEnumeratedAtomicSimpleType(int var0, int[] var1) {
+	return (var1[var0+5] & 4) != 0
+}
+
+func _getEnumerationFacetCountOfAtomicSimpleType(var0 int, var1 []int, var2 []int /*[]byte*/) int { //private static int _getEnumerationFacetCountOfAtomicSimpleType(int var0, int[] var1, byte[] var2) {
+	if _isEnumeratedAtomicSimpleType(var0, var1) {
+		var var3 int
+		if var2[var1[var0+2]] == 2 { //     int var3 = var2[var1[var0 + 2]] == 2 ? _getRestrictedCharacterCountOfStringSimpleType(var0, var1, var2) : 0;
+			var3 = _getRestrictedCharacterCountOfStringSimpleType(var0, var1, var2)
+		} else {
+			var3 = 0
+		}
+		return var1[var0+8+var3]
+	}
+
+	return 0
+}
+
+func _getRestrictedCharacterCountOfStringSimpleType(var0 int, var1 []int, var2 []int /*[]byte)*/) int { //   private static int _getRestrictedCharacterCountOfStringSimpleType(int var0, int[] var1, byte[] var2) {
+	var var3 int = (var1[var0+5] & 8160) >> 5 //int var3 = (var1[var0 + 5] & 8160) >> 5;
+
+	if 0 > var3 && var3 >= 256 { //      assert 0 <= var3 && var3 < 256;
+		panic("EXISchema.class, func _getRestrictedCharacterCountOfStringSimpleType, (0 > var3 && var3 >= 256)")
+	}
+
+	return var3
+}
+
 /////////////////end EXISchema.class////////////////////////
 ////////////////////////////////////end GrammarCache.class////////////////////////////////////////////////////////////////////////////////
+////////////////////////Characters.class////////////////////
+type Characters struct { //public final class Characters {
+	isVolatile bool     //	public boolean isVolatile;
+	characters []string //	public char[] characters;
+	startIndex int      //	public int startIndex;
+	length     int      //	public final int length;
+	ucsCount   int      //	public final int ucsCount;
+	m_hashCode int      //	private final int m_hashCode;
+	//	public static final Characters CHARACTERS_EMPTY = new Characters("".toCharArray(), 0, 0, false);
+}
+
+var CHARACTERS_EMPTY Characters = Characters{
+	isVolatile: false,
+	characters: []string{""},
+	startIndex: 0,
+	length:     0,
+	ucsCount:   0,
+	m_hashCode: 0,
+}
+
+////to do  проверить на правельность заполнение!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+func (c *Characters) Characters1(var1 []string, var2 int, var3 int, var4 bool) { //	public Characters(char[] var1, int var2, int var3, boolean var4) {
+	c.isVolatile = var4                    //	   this.isVolatile = var4;
+	c.characters = var1                    //	   this.characters = var1;
+	c.startIndex = var2                    //	   this.startIndex = var2;
+	c.length = var3                        //       this.length = var3;
+	var var5 int = 0                       //	   int var5 = 0;
+	var var6 int = c.startIndex + c.length //	   int var6 = this.startIndex + this.length;
+	var var7 int = 0                       //	   int var7 = 0;
+
+	for var8 := c.startIndex; var8 < var6; var7++ { // for(int var8 = this.startIndex; var8 < var6; ++var7) {
+
+		var var9 string = c.characters[var8] // char var9 = this.characters[var8++];
+		var8++
+		var5 = (var5 * 31) + var9                    // var5 = var5 * 31 + var9;
+		if (var9&'\ufc00') == 55296 && var8 < var6 { //  if ((var9 & '\ufc00') == 55296 && var8 < var6) {
+			var9 = c.characters[var8]       //			 var9 = this.characters[var8];
+			if (var9 & '\ufc00') == 56320 { //			 if ((var9 & '\ufc00') == 56320) {
+				var8++ //				++var8;
+			}
+		}
+	}
+
+	c.ucsCount = var7   // this.ucsCount = var7;
+	c.m_hashCode = var5 // this.m_hashCode = var5;
+}
+
+func (c *Characters) turnPermanent() { // public void turnPermanent() {
+	if c.isVolatile { //  if (this.isVolatile) {
+		var var1 []string = make([]string, c.length, c.length)                     // char[] var1 = new char[this.length];
+		copy(myCopyArrString(c.characters, c.startIndex, var1, 0, c.length), var1) // System.arraycopy(this.characters, this.startIndex, var1, 0, this.length);
+		c.characters = var1                                                        // this.characters = var1;
+		c.startIndex = 0                                                           // this.startIndex = 0;
+		c.isVolatile = false                                                       // this.isVolatile = false;
+	}
+
+}
+
+func (c *Characters) indexOf(var1 string) int { //	public int indexOf(char var1) {
+	var var2 int = c.startIndex + c.length //	   int var2 = this.startIndex + this.length;
+
+	for var3 := c.startIndex; var3 < var2; var3++ { //	   for(int var3 = this.startIndex; var3 < var2; ++var3) {
+		if c.characters[var3] == var1 { //		  if (this.characters[var3] == var1) {
+			return var3 //			 return var3;
+		}
+	}
+
+	return -1 //	   return -1;
+}
+
+//????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+func (c *Characters) substring(var1 int, var2 int) string { //	public String substring(int var1, int var2) {
+	return "" //	   return new String(this.characters, var1, var2 - var1);
+}
+
+func (c *Characters) hashCode() int { //	public int hashCode() {
+	return c.m_hashCode //	   return this.m_hashCode;
+}
+
+/*
+func (c *Characters) equals(var1 struct) bool{//	public boolean equals(Object var1) {
+//	   if (var1 instanceof Characters) {
+//		  Characters var2 = (Characters)var1;
+//		  if (this.length != var2.length) {
+//			 return false;
+//		  } else {
+//			 int var3 = var2.startIndex;
+//			 char[] var4 = var2.characters;
+
+//			 for(int var5 = 0; var5 < this.length; ++var5) {
+//				if (this.characters[this.startIndex + var5] != var4[var3 + var5]) {
+//				   return false;
+//				}
+//			 }
+
+//			 return true;
+//		  }
+//	   } else {
+//		  return false;
+//	   }
+//	}
+
+//	public String makeString() {
+//	   return new String(this.characters, this.startIndex, this.length);
+//	}
+}
+*/
+////////////////////////end Characters.class////////////
 func EncodeEXI(sourceFile, destinationFile string) {
 
 }

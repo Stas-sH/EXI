@@ -633,8 +633,9 @@ func (e *EXIOptions) appendDatatypeRepresentationMap(var1, var2 EventDescription
 			e.m_datatypeRepresentationMap = var6
 		}
 		var var7 int = 2 * e.m_n_datatypeRepresentationMapBindings
-		e.m_datatypeRepresentationMap[var7+1].setValue2(var1.getURI(), var1.getName(), "", "") //[var7++]
-		e.m_datatypeRepresentationMap[var7+2].setValue2(var2.getURI(), var2.getName(), "", "") //[var7++]
+		e.m_datatypeRepresentationMap[var7].setValue2(var1.getURI(), var1.getName(), "", "")   //[var7++]
+		e.m_datatypeRepresentationMap[var7+1].setValue2(var2.getURI(), var2.getName(), "", "") //[var7++]
+		var7 = var7 + 2
 
 		if var7 != var4 {
 			err = errors.New("class EXIOptions, method appendDatatypeRepresentationMap, must -> var7 == var4")
@@ -1684,6 +1685,125 @@ func (e *EXISchema) setUp() {
 	e.buildFragmentsArray()
 }
 
+func (e *EXISchema) buildFragmentsArray() { //private void buildFragmentsArray() {
+	var var6 []int             //ArrayList var6 = new ArrayList();
+	var var3 int = -1          //int var3 = -1;
+	var var2 int = -1          //int var2 = -1;
+	var var4 int = -2147483648 /*0x80000000*/ //Integer.MIN_VALUE //int var4 = Integer.MIN_VALUE;
+	var var5 bool = true       //boolean var5 = true;
+
+	var var1 int                                           //int var1;
+	var var8 int                                           //int var8;
+	var var9 int                                           //int var9;
+	for var1 = 0; var1 < len(e.m_elems); var1 = var1 + 4 { //for(var1 = 0; var1 < this.m_elems.length; var1 += 4) {
+		var8 = e.m_elems[var1+1]          //var8 = this.m_elems[var1 + 1];
+		var9 = e.m_elems[var1+0]          //var9 = this.m_elems[var1 + 0];
+		if var2 == var8 && var3 == var9 { //if (var2 == var8 && var3 == var9) {
+			if var4 == var1 && var8 != var2 && var9 != var3 { //assert var4 != var1 && var8 == var2 && var9 == var3;
+				panic("EXISchema.class, func  buildFragmentsArray, var4 == var1 && var8 != var2 && var9 != var3")
+			}
+			if e.getTypeOfElem(var1) != e.getTypeOfElem(var4) || e.isNillableElement(var1) != e.isNillableElement(var4) { // if (this.getTypeOfElem(var1) != this.getTypeOfElem(var4) || this.isNillableElement(var1) != this.isNillableElement(var4)) {
+				var5 = false //var5 = false;
+			}
+		} else {
+			if var1 != 0 { //if (var1 != 0) {
+				if var5 { //var6.add(var5 ? var4 : 0 - var4 - 1);
+					var6 = append(var6, var4)
+				} else {
+					var6 = append(var6, (0 - var4 - 1))
+				}
+			}
+
+			var4 = var1 //var4 = var1;
+			var5 = true //var5 = true;
+			var2 = var8 //var2 = var8;
+			var3 = var9 //var3 = var9;
+		}
+	}
+
+	if var1 != 0 { //if (var1 != 0) {
+		if var5 {
+			var6 = append(var6, var4) //var6.add(var5 ? var4 : 0 - var4 - 1);
+		} else {
+			var6 = append(var6, (0 - var4 - 1))
+		}
+	}
+
+	var var7 []int     //ArrayList var7 = new ArrayList();
+	var3 = -1          //var3 = -1;
+	var2 = -1          //var2 = -1;
+	var4 = -2147483648 /*0x80000000*/ //Integer.MIN_VALUE //var4 = Integer.MIN_VALUE;
+	var5 = true        //var5 = true;
+
+	for var1 = 0; var1 < len(e.m_attrs); var1 = var1 + 3 { //for(var1 = 0; var1 < this.m_attrs.length; var1 += 3) {
+		var9 = e.m_attrs[var1+1]           //var9 = this.m_attrs[var1 + 1];
+		var var10 int = e.m_attrs[var1+0]  //int var10 = this.m_attrs[var1 + 0];
+		if var2 == var9 && var3 == var10 { //if (var2 == var9 && var3 == var10) {
+			if var4 == var1 && var9 != var2 && var10 != var3 { //assert var4 != var1 && var9 == var2 && var10 == var3;
+				panic("EXISchema.class, func  buildFragmentsArray, var4 == var1 && var9 != var2 && var10 != var3")
+			}
+			if e.getTypeOfAttr(var1) != e.getTypeOfAttr(var4) { //if (this.getTypeOfAttr(var1) != this.getTypeOfAttr(var4)) {
+				var5 = false //var5 = false;
+			}
+		} else {
+			if var1 != 0 { //if (var1 != 0) {
+				if var5 { //var7.add(var5 ? var4 : 0 - var4 - 1);
+					var7 = append(var7, var4)
+				} else {
+					var7 = append(var7, (0 - var4 - 1))
+				}
+			}
+
+			var4 = var1  //var4 = var1;
+			var5 = true  //var5 = true;
+			var2 = var9  //var2 = var9;
+			var3 = var10 //var3 = var10;
+		}
+	}
+
+	if var1 != 0 { //if (var1 != 0) {
+		if var5 { //var7.add(var5 ? var4 : 0 - var4 - 1);
+			var7 = append(var7, var4)
+		} else {
+			var7 = append(var7, (0 - var4 - 1))
+		}
+	}
+
+	var8 = 0                                                                                       //var8 = 0;
+	e.m_n_fragmentElems = len(var6)                                                                //this.m_n_fragmentElems = var6.size();
+	e.m_fragmentINodes = make([]int, e.m_n_fragmentElems+len(var7), e.m_n_fragmentElems+len(var7)) //this.m_fragmentINodes = new int[this.m_n_fragmentElems + var7.size()];
+
+	//var var11 Iterator //Iterator var11;
+	for _, elem := range var6 { //for(var11 = var6.iterator(); var11.hasNext(); this.m_fragmentINodes[var8++] = (Integer)var11.next()) {
+		e.m_fragmentINodes[var8] = elem
+		var8++
+	}
+
+	if var8 != e.m_n_fragmentElems { //assert var8 == this.m_n_fragmentElems;
+		panic("EXISchema.class, func  buildFragmentsArray, var8 != e.m_n_fragmentElems")
+	}
+
+	for _, elem := range var7 { //for(var11 = var7.iterator(); var11.hasNext(); this.m_fragmentINodes[var8++] = (Integer)var11.next()) {
+		e.m_fragmentINodes[var8] = elem
+		var8++
+	}
+
+}
+
+func (e *EXISchema) computeDateTimes() { //private void computeDateTimes() {
+	var var1 int = len(e.m_datetimes)                               //int var1 = this.m_datetimes.length;
+	var var2 []string = /*XSDateTime[]*/ make([]string, var1, var1) //XSDateTime[] var2 = new XSDateTime[var1];
+
+	for var3 := 0; var3 < var1; var3++ { //for(int var3 = 0; var3 < var1; ++var3) {
+		var var4 string //XSDateTime var4;
+		var4 = e.m_datetimes[var3]
+		var2[var3] = var4 //var2[var3] = var4 = new XSDateTime(this.m_datetimes[var3]);
+		//var4.normalize();
+	}
+
+	e.m_computedDatetimes = var2 //this.m_computedDatetimes = var2;
+}
+
 func (e *EXISchema) computeAncestryIds() {
 	e.ancestryIds = make([]int, e.m_n_stypes+1, e.m_n_stypes+1)
 	e.ancestryIds[0] = -1
@@ -1844,14 +1964,14 @@ func (e *EXISchema) computeVariantCharacters() { //private void computeVariantCh
 	var var2 []Characters = /*string*/ make([]Characters, var1, var1) //Characters[] var2 = new Characters[var1];
 
 	for var3 := 0; var3 < var1; var3++ {
-		var var4 string = e.computeVariantCharacters(var3)                                            //String var4 = this.computeVariantCharacters(var3);
+		var var4 string = e.computeVariantCharacters1(var3)                                           //String var4 = this.computeVariantCharacters(var3);
 		var2[var3] = CHARACTERS_EMPTY.Characters1(myToCharArray(var4), 0, len(([]rune(var4))), false) //var2[var3] = new Characters(var4.toCharArray(), 0, var4.length(), false); //add []rune
 	}
 
 	e.m_variantCharacters = var2 //this.m_variantCharacters = var2;
 }
 
-func (e *EXISchema) computeVariantCharacters(var1 int) string { //private String computeVariantCharacters(int var1) {
+func (e *EXISchema) computeVariantCharacters1(var1 int) string { //private String computeVariantCharacters(int var1) {
 	var var2 string = ""            //String var2 = "";
 	var var3 []byte                 //byte[] var3;
 	switch e.m_variantTypes[var1] { //switch(this.m_variantTypes[var1]) {
@@ -1921,15 +2041,22 @@ func (e *EXISchema) computeVariantCharacters(var1 int) string { //private String
 		//break;
 	case 8: //case 8:
 		var3 = e.getBinaryValueOfVariant(var1) //var3 = this.getBinaryValueOfVariant(var1);
-		//var var17 int = //int var17 = var3.length / 3 << 2;
-		//if (var3.length % 3 != 0) {
-		//var17 += 4;
-		//}
+		var var17 int = len(var3) / 3 << 2     //int var17 = var3.length / 3 << 2;
+		if len(var3)%3 != 0 {                  //if (var3.length % 3 != 0) {
+			var17 += 4 //var17 += 4;
+		}
 
-		//var17 += var17 / 76;
-		//char[] var18 = new char[var17];
-		//int var19 = Base64.encode(var3, 0, var3.length, var18, 0);
-		//var2 = new String(var18, 0, var19);
+		var17 += var17 / 76                                        //var17 += var17 / 76;
+		var var18 []string = make([]string, var17, var17)          //char[] var18 = new char[var17];
+		var var19 int = Base64encode(var3, 0, len(var3), var18, 0) //int var19 = Base64.encode(var3, 0, var3.length, var18, 0);
+
+		var2 = ""                      //var2 = new String(var18, 0, var19);
+		for idx, elem := range var18 { //var2 = new String(var18, 0, var19);
+			var2 += elem
+			if idx >= var19 {
+				break
+			}
+		}
 		//break;
 	case 9: //case 9:
 		panic("EXISchema.class, func computeVariantCharacters, case 9") //assert false;
@@ -1937,15 +2064,61 @@ func (e *EXISchema) computeVariantCharacters(var1 int) string { //private String
 		return "nil" //return null
 	case 10: //case 10:
 		var3 = e.getBinaryValueOfVariant(var1) //var3 = this.getBinaryValueOfVariant(var1);
-		//StringBuffer var20 = new StringBuffer();
-		//HexBin.encode(var3, var3.length, var20);
-		//var2 = var20.toString();
+		var var20 strings.Builder              //StringBuffer var20 = new StringBuffer();
+		HexBinencode(var3, len(var3), &var20)  //HexBin.encode(var3, var3.length, var20);
+		var2 = var20.String()                  //var2 = var20.toString();
 		//break;
 	default: //default:
 		panic("EXISchema.class, func computeVariantCharacters, default") //assert false;
 	}
 
 	return var2 //return var2;
+}
+
+func (e *EXISchema) getTypeOfAttr(var1 int) int { //public int getTypeOfAttr(int var1) {
+	if 0 > var1 { //assert 0 <= var1;
+		panic("EXISchema.class, func getTypeOfAttr, 0 > var1")
+	}
+	result := e._getTypeOfAttr(var1, e.m_attrs)
+	return result //return _getTypeOfAttr(var1, this.m_attrs);
+}
+
+func (e *EXISchema) _getTypeOfAttr(var0 int, var1 []int) int { //public static int _getTypeOfAttr(int var0, int[] var1) {
+	var var2 int = var1[var0+2] //int var2 = var1[var0 + 2];
+	var result int
+	if (var2 & -2147483648 /*0x80000000*/ /*Integer.MIN_VALUE*/) != 0 {
+		result = (^var2)
+	} else {
+		result = var2
+	}
+	return result //return (var2 & Integer.MIN_VALUE) != 0 ? ~var2 : var2;
+}
+
+func (e *EXISchema) isNillableElement(var1 int) bool { //public boolean isNillableElement(int var1) {
+	if 0 > var1 { //assert 0 <= var1;
+		panic("EXISchema.class, func isNillableElement, 0 > var1")
+	}
+	return e.m_elems[var1+3] != 0 //return this.m_elems[var1 + 3] != 0;
+}
+
+func (e *EXISchema) getTypeOfElem(var1 int) int { //public int getTypeOfElem(int var1) {
+	if 0 > var1 { //assert 0 <= var1;
+		panic("EXISchema.class, func getTypeOfElem, 0 > var1")
+	}
+	var var2 int = e.m_elems[var1+2] //int var2 = this.m_elems[var1 + 2];
+	if (var2 & -2147483648 /*0x80000000*/ /*Integer.MIN_VALUE*/) != 0 {
+		return (^var2)
+	}
+	return var2 //return (var2 & Integer.MIN_VALUE) != 0 ? ~var2 : var2;
+}
+
+func (e *EXISchema) getBinaryValueOfVariant(var1 int) []byte { //public byte[] getBinaryValueOfVariant(int var1) {
+	var var2 byte = e.m_variantTypes[var1] //byte var2 = this.m_variantTypes[var1];
+
+	if 0 > var1 && (var2 != 8 || var2 != 10) { //assert 0 <= var1 && (var2 == 8 || var2 == 10);
+		panic("EXISchema.class, func  getBinaryValueOfVariant, 0 > var1 && (var2 != 8 || var2 != 10)")
+	}
+	return e.m_binaries[e.m_variants[var1]]
 }
 
 func (e *EXISchema) getDurationValueOfVariant(var1 int) int64 /*Duration*/ { //public Duration getDurationValueOfVariant(int var1) {
@@ -2033,7 +2206,7 @@ func (e *EXISchema) getNameOfType(var1 int) string { //public String getNameOfTy
 
 func (e *EXISchema) isGlobalAttr(var1 int) bool { //public boolean isGlobalAttr(int var1) {
 	var var2 int = e.m_attrs[var1+2]
-	return (var2 & 0x80000000 /*Integer.MIN_VALUE*/) != 0
+	return (var2 & -2147483648 /*0x80000000*/ /*Integer.MIN_VALUE*/) != 0
 }
 
 func (e *EXISchema) getGlobalElemCountOfSchema() int { //public int getGlobalElemCountOfSchema() {
@@ -2042,7 +2215,7 @@ func (e *EXISchema) getGlobalElemCountOfSchema() int { //public int getGlobalEle
 
 func (e *EXISchema) isGlobalElem(var1 int) bool { //public boolean isGlobalElem(int var1) {
 	var var2 int = e.m_elems[var1+2]
-	return (var2 & 0x80000000 /*Integer.MIN_VALUE*/) != 0
+	return (var2 & -2147483648 /*0x80000000*/ /*Integer.MIN_VALUE*/) != 0
 }
 
 func (e *EXISchema) getNameOfElem(var1 int) string { //public String getNameOfElem(int var1) {
@@ -2073,7 +2246,7 @@ func (e *EXISchema) getVarietyOfSimpleType(var1 int) byte { //public byte getVar
 }
 
 func (e *EXISchema) isSimpleType(var1 int) bool { //   public boolean isSimpleType(int var1) {
-	return (e.m_types[var1+5] & 0x80000000 /*Integer.MIN_VALUE*/) != 0
+	return (e.m_types[var1+5] & -2147483648 /*0x80000000*/ /*Integer.MIN_VALUE*/) != 0
 }
 
 func (e *EXISchema) getSerialOfType(var1 int) int { //public int getSerialOfType(int var1) {
@@ -2088,7 +2261,7 @@ func _getTypeSize(var0 int, var1 []int, var2 []int /*[]byte*/) int { //public st
 		panic("EXISchema.class, func _getTypeSize, var0==-1")
 	} //      assert var0 != -1;
 
-	if (var1[var0+5] & 0x80000000 /*Integer.MIN_VALUE*/) != 0 { //      return (var1[var0 + 5] & Integer.MIN_VALUE) != 0 ? _getSizeOfSimpleType(var0, var1, var2) : 6;
+	if (var1[var0+5] & -2147483648 /*0x80000000*/ /*Integer.MIN_VALUE*/) != 0 { //      return (var1[var0 + 5] & Integer.MIN_VALUE) != 0 ? _getSizeOfSimpleType(var0, var1, var2) : 6;
 		return _getSizeOfSimpleType(var0, var1, var2)
 	}
 	return 6
@@ -2141,6 +2314,144 @@ func _getRestrictedCharacterCountOfStringSimpleType(var0 int, var1 []int, var2 [
 	return var3
 }
 
+//////////////////Base64.class//////////////
+
+type Base64 struct { //public final class Base64 {
+	BASE64_ASCIIS []string //private static final char[] BASE64_ASCIIS;
+	BASE64CHARS   []byte   //private static final byte[] BASE64CHARS = new byte[8192];
+	m_octets      []byte   //private static final byte[] m_octets;
+}
+
+var myVarBase64 Base64 = Base64{
+	BASE64CHARS: make([]byte, 8192, 8192),
+}
+
+//private Base64() {
+//}
+
+func Base64encode(var0 []byte, var1 int, var2 int, var3 []string, var4 int) int { //public static int encode(byte[] var0, int var1, int var2, char[] var3, int var4) {
+	var var5 int = var1 + var2 //int var5 = var1 + var2;
+	var var6 = var4            //int var6 = var4;
+	var var7 = var1            //int var7 = var1;
+
+	for var8 := 0; var7 < var5; var8++ { //for(int var8 = 0; var7 < var5; ++var8) {
+		var var9 int                                    //int var9;
+		for var9 = 0; var9 < 3 && var7 < var5; var9++ { //for(var9 = 0; var9 < 3 && var7 < var5; ++var9) {
+			var7++ //++var7;
+		}
+
+		if var9 != 1 || var9 != 2 || var9 != 3 { //assert var9 == 1 || var9 == 2 || var9 == 3;
+			panic("Base64.class, Base64encode, var9 != 1 || var9 != 2 || var9 != 3")
+		}
+		var var13 byte = 64 //byte var13 = 64;
+		var var14 byte = 64 //byte var14 = 64;
+		var var11 byte      //byte var11;
+		var11 = byte(var0[var7] >> 2)
+		if (byte(var0[var7] >> 2)) < 0 { //if ((var11 = (byte)(var0[var7] >> 2)) < 0) {
+			var11 = byte(var11 ^ 192) //var11 = (byte)(var11 ^ 192);
+		}
+
+		var var12 byte //byte var12;
+		var12 = byte(var0[var7+1] >> 4)
+		if var9 > 1 { //if (var9 > 1) {
+			if (byte(var0[var7+1] >> 4)) < 0 { //if ((var12 = (byte)(var0[var7 + 1] >> 4)) < 0) {
+				var12 = byte(var12 ^ 240) //var12 = (byte)(var12 ^ 240);
+			}
+
+			var12 = (byte)((var0[var7]&3)<<4 | var12) //var12 = (byte)((var0[var7] & 3) << 4 | var12);
+			if var9 > 2 {                             //if (var9 > 2) {
+				var13 = byte(var0[var7+2] >> 6)
+				if (byte(var0[var7+2] >> 6)) < 0 { //if ((var13 = (byte)(var0[var7 + 2] >> 6)) < 0) {
+					var13 = byte(var13 ^ 252) //var13 = (byte)(var13 ^ 252);
+				}
+
+				var13 = byte((var0[var7+1]&15)<<2 | var13) //var13 = (byte)((var0[var7 + 1] & 15) << 2 | var13);
+				var14 = byte(var0[var7+2] & 63)            //var14 = (byte)(var0[var7 + 2] & 63);
+			} else { //} else {
+				var13 = byte((var0[var7+1] & 15) << 2) //var13 = (byte)((var0[var7 + 1] & 15) << 2);
+			}
+		} else { //} else {
+			var12 = byte((var0[var7] & 3) << 4) //var12 = (byte)((var0[var7] & 3) << 4);
+		}
+
+		var3[var6] = myVarBase64.BASE64_ASCIIS[var11]   //var3[var6++] = BASE64_ASCIIS[var11];
+		var3[var6+1] = myVarBase64.BASE64_ASCIIS[var12] //var3[var6++] = BASE64_ASCIIS[var12];
+		var3[var6+2] = myVarBase64.BASE64_ASCIIS[var13] //var3[var6++] = BASE64_ASCIIS[var13];
+		var3[var6+3] = myVarBase64.BASE64_ASCIIS[var14] //var3[var6++] = BASE64_ASCIIS[var14];
+		var6 = var6 + 4
+
+		if var8%19 == 18 { //if (var8 % 19 == 18) {
+			var3[var6] = "\n" //var3[var6++] = '\n';
+			var6 = var6 + 1
+		}
+	}
+
+	return var6 - var4 //return var6 - var4;
+}
+
+/*
+	//static {
+	   //String var0 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+	   //int var1 = 0;
+
+	   //int var2;
+	   //for(var2 = var0.length(); var1 < var2; ++var1) {
+		  //char var3 = var0.charAt(var1);
+		  //byte[] var10000 = BASE64CHARS;
+		  //var10000[var3 / 8] = (byte)(var10000[var3 / 8] | 1 << 7 - var3 % 8);
+	   //}
+
+	   //BASE64_ASCIIS = new char[var0.length()];
+	   //var1 = 0;
+
+	   //for(var2 = var0.length(); var1 < var2; ++var1) {
+		  //BASE64_ASCIIS[var1] = var0.charAt(var1);
+	   //}
+
+	   //m_octets = new byte[256];
+
+	   //int var4;
+	   //for(var4 = 90; var4 >= 65; --var4) {
+		  //m_octets[var4] = (byte)(var4 - 65);
+	   //}
+
+	   //for(var4 = 122; var4 >= 97; --var4) {
+		  //m_octets[var4] = (byte)(var4 - 97 + 26);
+	   //}
+
+	   //for(var4 = 57; var4 >= 48; --var4) {
+		  //m_octets[var4] = (byte)(var4 - 48 + 52);
+	   //}
+
+	   //m_octets[43] = 62;
+	   //m_octets[47] = 63;
+	//}
+
+*/
+////////////////end Base64.class/////////
+////////////////HexBin.class//////////
+var HEXBIN_ASCIIS string = "0123456789ABCDEF"
+
+func HexBinencode(var0 []byte, var1 int, var2 *strings.Builder) { //public static void encode(byte[] var0, int var1, StringBuffer var2) {
+	if var0 != nil && (*var2).String() != "" { //if (var0 != null && var2 != null) {
+		for var3 := 0; var3 < var1; var3++ { //for(int var3 = 0; var3 < var1; ++var3) {
+			var var4 int //int var4;
+
+			var4 = int(var0[var3] >> 4)
+			if (var0[var3] >> 4) < 0 { //if ((var4 = var0[var3] >> 4) < 0) {
+				var4 &= 15 //var4 &= 15;
+			}
+
+			var var5 int = int(var0[var3] & 15)              //int var5 = var0[var3] & 15;
+			(*var2).WriteString(string(HEXBIN_ASCIIS[var4])) //var2.append("0123456789ABCDEF".charAt(var4));
+			(*var2).WriteString(string(HEXBIN_ASCIIS[var5])) //var2.append("0123456789ABCDEF".charAt(var5));
+		}
+	}
+
+}
+
+////////////////end HexBin.class/////
+
 /////////////////end EXISchema.class////////////////////////
 ////////////////////////////////////end GrammarCache.class////////////////////////////////////////////////////////////////////////////////
 ////////////////////////Characters.class////////////////////
@@ -2164,7 +2475,7 @@ var CHARACTERS_EMPTY Characters = Characters{
 }
 
 ////to do  проверить на правельность заполнение!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-func (c *Characters) Characters1(var1 []string, var2 int, var3 int, var4 bool) { //	public Characters(char[] var1, int var2, int var3, boolean var4) {
+func (c *Characters) Characters1(var1 []string, var2 int, var3 int, var4 bool) Characters { //	public Characters(char[] var1, int var2, int var3, boolean var4) {
 	c.isVolatile = var4                    //	   this.isVolatile = var4;
 	c.characters = var1                    //	   this.characters = var1;
 	c.startIndex = var2                    //	   this.startIndex = var2;
@@ -2177,17 +2488,31 @@ func (c *Characters) Characters1(var1 []string, var2 int, var3 int, var4 bool) {
 
 		var var9 string = c.characters[var8] // char var9 = this.characters[var8++];
 		var8++
-		var5 = (var5 * 31) + var9                    // var5 = var5 * 31 + var9;
-		if (var9&'\ufc00') == 55296 && var8 < var6 { //  if ((var9 & '\ufc00') == 55296 && var8 < var6) {
-			var9 = c.characters[var8]       //			 var9 = this.characters[var8];
-			if (var9 & '\ufc00') == 56320 { //			 if ((var9 & '\ufc00') == 56320) {
-				var8++ //				++var8;
+		var99, err := strconv.Atoi(var9)
+		if err != nil {
+			panic(err)
+		} else {
+			var5 = (var5 * 31) + var99                               // var5 = var5 * 31 + var9;
+			if (var9&'\ufc00' /*[64512]*/) == 55296 && var8 < var6 { //  if ((var9 & '\ufc00') == 55296 && var8 < var6) {
+				var9 = c.characters[var8]                   //			 var9 = this.characters[var8];
+				if (var9 & '\ufc00' /*[64512]*/) == 56320 { //			 if ((var9 & '\ufc00') == 56320) {
+					var8++ //				++var8;
+				}
 			}
 		}
 	}
 
 	c.ucsCount = var7   // this.ucsCount = var7;
 	c.m_hashCode = var5 // this.m_hashCode = var5;
+	var result Characters = Characters{
+		isVolatile: var4,
+		characters: var1,
+		startIndex: var2,
+		length:     var3,
+		ucsCount:   var7,
+		m_hashCode: var5,
+	}
+	return result
 }
 
 func (c *Characters) turnPermanent() { // public void turnPermanent() {
